@@ -2,7 +2,6 @@
 
 #———————————————————————————————————————— instructional notes
 
-descSettings     = "Basic settings that affect the entire website."
 descLanguages    = "Languages supported by your website."
 descCombinations = "Combination Codes are the first part of the page address. They represent a specific <b>language/screen size combination</b>."
 descFonts        = "Fonts will be added automatically <b>the first time the page is loaded</b>. You must <i>either</i> provide a <b>WOFF filename</b> or check <b>Google font</b> (<a href=\"https://tech.svija.love/next-steps/fonts/google-fonts\">more info</a>)."
@@ -275,6 +274,12 @@ admin.site.register(Module, ModuleAdmin)
 #   admin.site.register(Prefix, PrefixAdmin)
 
 #———————————————————————————————————————— settings · depends on robots & prefix
+
+from urllib.parse import quote
+
+mailLink     = "mailto:support@svija.love?subject=custom domain request&body="
+mailBody     = quote("I would like to change the address of my Svija website:\n\n    from:\n    to:\n\nThank you,\n")
+descSettings = "Changing the address of your website is easy — email <a href='" + mailLink + mailBody + "'>support@svija.love</a>."
 
 from .models import Settings
 class SettingsAdmin(admin.ModelAdmin):
