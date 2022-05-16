@@ -38,7 +38,7 @@ class page_obj():
 #unctions = ['get_script',         'cache_per_user',           'combine_content',
 #            'contains_form',      'generate_accessibility',   'generate_form_js',
 #            'generate_system_js', 'get_fonts', 'get_modules', 'get_page_svgs',
-#            'redirect_if_home',         'scripts_to_page_obj', ]
+#            'redirect_if_possible',         'scripts_to_page_obj', ]
 
 #or function in functions:
 #   x = importlib.import_module('.'+function , 'modules')
@@ -58,7 +58,7 @@ from modules.get_modules import *
 from modules.get_page_svgs import *
 from modules.get_screen_code import *
 from modules.get_scripts import *
-from modules.redirect_if_home import *
+from modules.redirect_if_possible import *
 from modules.scripts_to_page_obj import *
 from modules.get_page_scripts import *
 from django.http import Http404
@@ -109,7 +109,9 @@ def SubPageView(request, language_code, request_slug, screen_code):
 
     #———————————————————————————————————————— redirect if /en/home or /en or /fr/accueil
 
-    redirect = redirect_if_home(request.path, settings.language.code, language.default_page)
+    redirect = redirect_if_possible(request, settings.language.code, language.default_page)
+#   return HttpResponse("<pre>\n\n    '" + redirect + "'")
+
     if redirect: return HttpResponsePermanentRedirect(redirect)
 
     #———————————————————————————————————————— metatags, system js & fonts
